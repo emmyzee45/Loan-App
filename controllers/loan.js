@@ -1,4 +1,3 @@
-// import Loan from "../data/Loan";
 import Loans from "../data/Loan.js";
 
 export const getAllLoans = async (req, res, next) => {

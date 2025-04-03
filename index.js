@@ -1,7 +1,6 @@
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
-import connect from "./config/db.js"
 import authRoute from "./routes/auth.js";
 import loanRoute from "./routes/loan.js";
 
@@ -12,8 +11,8 @@ app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/api/auth", authRoute);
-app.use("/api/loan", loanRoute);
+app.use("/", authRoute);
+app.use("/loan", loanRoute);
 
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;
@@ -24,6 +23,5 @@ app.use((err, req, res, next) => {
 
 
 app.listen(process.env.PORT, () => {
-  connect();
   console.log("Backend server is running!")
 })
