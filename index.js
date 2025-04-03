@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/", authRoute);
-app.use("/loan", loanRoute);
+app.use("/loans", loanRoute);
 
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;

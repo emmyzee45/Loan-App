@@ -14,7 +14,6 @@ export const getAllLoans = async (req, res, next) => {
 
 export const getLoansBaseOnStatus = async (req, res, next) => {
     const status = req.query.status;
-    console.log(status)
     try {
         const loans = await Loans.filter((state) => state.status === status)
         res.status(200).json(loans)
@@ -24,6 +23,7 @@ export const getLoansBaseOnStatus = async (req, res, next) => {
 }
 
 export const getLoansByUser = async (req, res, next) => {
+    console.log(req.params.userEmail)
     try {
         const userLoans = loans.filter(loan => loan.applicant.email === req.params.userEmail)
         res.status(200).json(userLoans.length ? userLoans : { loans: [] });
