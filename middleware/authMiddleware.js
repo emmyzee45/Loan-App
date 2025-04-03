@@ -1,11 +1,14 @@
 import jwt from "jsonwebtoken";
 import createError from "./errorHandler.js";
+import blacklist from "../data/Blacklist.js";
 
 export const authenticate = (req, res, next) => {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
 
   if (!token) return next(createError(401,"You are not authenticated!"))
+
+  if (blacklist.includes(token)) return next(createError(403,"Token is not valid!"))
 
   jwt.verify(token, process.env.JWT_KEY, async (err, payload) => {
     if (err) return next(createError(403,"Token is not valid!"));

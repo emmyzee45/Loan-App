@@ -2,6 +2,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import Staff from "../data/Staff.js";
 import createError from "../middleware/errorHandler.js";
+import Blacklist from "../data/Blacklist.js";
 
 
 export const login = async (req, res, next) => {
@@ -30,6 +31,9 @@ export const login = async (req, res, next) => {
   };
 
   export const logout = async (req, res) => {
+    const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+    Blacklist.push(token)
     res
       .clearCookie("accessToken", {
         sameSite: "none",
